@@ -1,0 +1,30 @@
+{
+  "name": "eode9/e9-mod-user",
+  "description": "E9 User module",
+  "keywords": [
+    "e9-app",
+    "eode9",
+    "e9-mod-user"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kevin Marie",
+      "email": "kevin.marie@eode9.com"
+    }
+  ],
+  "type": "library",
+  "require": {
+    "eode9/e9-core": "dev-master",
+    "alexshelkov/simpleacl": "2.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.2.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "E9\\User\\": "src/"
+    },
+    "files": [ "src/env.php" ]
+  }
+}

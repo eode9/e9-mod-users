@@ -1,0 +1,180 @@
+{% extends "layouts/layout.twig" %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="ct-site--map">
+    <div class="container">
+      <a href="index.html">Home</a>
+      <a href="registration.html">New User</a>
+    </div>
+  </div>
+  <header class="ct-mediaSection" data-stellar-background-ratio="0.3" data-height="630" data-type="parallax" data-bg-image="assets/images/content/registration-parallax.jpg" data-bg-image-mobile="assets/images/content/registration-parallax.jpg">
+    <div class="ct-mediaSection-inner">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="ct-headerText--normal">
+              <h2 class="text-uppercase ct-fw-600 ct-u-marginBottom70">
+                What will you
+                <span class="ct-u-text--motive">earn</span>
+                by registering?
+              </h2>
+            </div>
+            <div class="ct-iconBox ct-u-marginBottom40 ct-iconBox--2col">
+              <div class="ct-icon text-center ct-iconContainer--circle ct-iconContainer--circleHoverLight">
+                <i class="fa fa-users"></i>
+              </div>
+              <div class="ct-iconBox--description">
+                <span class="ct-title text-uppercase ct-fw-600">Get more users</span>
+                <span class="ct-text">Thanks to our content optimization you will get more visits to your property page.</span>
+              </div>
+            </div>
+            <div class="ct-iconBox ct-u-marginBottom40 ct-iconBox--2col">
+              <div class="ct-icon text-center ct-iconContainer--circle ct-iconContainer--circleHoverLight">
+                <i class="fa fa-bolt"></i>
+              </div>
+              <div class="ct-iconBox--description">
+                <span class="ct-title text-uppercase ct-fw-600">Convert visitors</span>
+                <span class="ct-text">With our design and structures you will be able to show your property in better light.</span>
+              </div>
+            </div>
+            <div class="ct-iconBox ct-iconBox--2col">
+              <div class="ct-icon text-center ct-iconContainer--circle ct-iconContainer--circleHoverLight">
+                <i class="fa fa-trophy"></i>
+              </div>
+              <div class="ct-iconBox--description">
+                <span class="ct-title text-uppercase ct-fw-600">Reach your goal</span>
+                <span class="ct-text">Estato was designed to become your real estate business partner. It’s not only a tool, it’s a working ecosystem.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <form role="form" class="ct-formRegister pull-right">
+              <div class="form-group">
+                <div class="ct-form--label--type2">
+                  <div class="ct-u-displayTableVertical">
+                    <div class="ct-u-displayTableCell">
+                      <div class="ct-input-group-btn">
+                        <button class="btn btn-primary">
+                          <i class="fa fa-user"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="ct-u-displayTableCell text-center">
+                      <span class="text-uppercase">Become a member</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="ct-form--item ct-u-marginBottom20">
+                  <label>Your Email</label>
+                  <input type="text" required class="form-control input-lg" placeholder="">
+                </div>
+                <div class="ct-form--item ct-u-marginBottom20">
+                  <label>Password</label>
+                  <input type="text" required class="form-control input-lg" placeholder="">
+                </div>
+                <div class="ct-form--item ct-u-marginBottom20">
+                  <label>Repeat Password</label>
+                  <input type="text" required class="form-control input-lg" placeholder="">
+                </div>
+                <div class="ct-form--item ct-u-marginBottom20">
+                  <label>Account Type</label>
+                  <select class="ct-js-select ct-select-lg">
+                    <option value="month">Standard User</option>
+                    <option value="January">Premium User</option>
+                  </select>
+                </div>
+                <div class="ct-form--item ct-u-marginBottom20">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value="">
+                      I read and agree to<a href="terms.html"> terms & conditions</a>
+                    </label>
+                  </div>
+                </div>
+                <div class="ct-form--item">
+                  <button type="submit" class="btn btn-warning center-block">Register Now</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {#<div class="container">#}
+    {#<div class="row main">#}
+      {#<div class="main-login main-center">#}
+        {#<h1>#}
+          {#{{ trans "Create your IvorianWeddings account" }}#}
+          {#Create your IvorianWeddings account#}
+        {#</h1>#}
+        {#<form method="post" action="/user/register/create">#}
+
+          {#<div class="form-group">#}
+            {#<label for="name" class="cols-sm-2 control-label">Your first name</label>#}
+            {#<div class="cols-sm-10">#}
+              {#<div class="input-group">#}
+                {#<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>#}
+                {#<input class="form-control" name="fullName" id="name"  placeholder="Enter your Name"/>#}
+              {#</div>#}
+            {#</div>#}
+          {#</div>#}
+
+          {#<div class="form-group">#}
+            {#<label for="email" class="cols-sm-2 control-label">Your Email</label>#}
+            {#<div class="cols-sm-10">#}
+              {#<div class="input-group">#}
+                {#<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>#}
+                {#<input class="form-control" name="email" id="email"  placeholder="Enter your Email"/>#}
+              {#</div>#}
+            {#</div>#}
+          {#</div>#}
+
+          {#<div class="form-group">#}
+            {#<label for="password" class="cols-sm-2 control-label">Password</label>#}
+            {#<div class="cols-sm-10">#}
+              {#<div class="input-group">#}
+                {#<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>#}
+                {#<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>#}
+              {#</div>#}
+            {#</div>#}
+          {#</div>#}
+
+          {#<div class="form-group">#}
+            {#<label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>#}
+            {#<div class="cols-sm-10">#}
+              {#<div class="input-group">#}
+                {#<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>#}
+                {#<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>#}
+              {#</div>#}
+            {#</div>#}
+          {#</div>#}
+
+          {#<div class="form-group ">#}
+            {#<button class="btn btn-primary btn-lg btn-block login-button">Create account</button>#}
+          {#</div>#}
+
+        {#</form>#}
+      {#</div>#}
+    {#</div>#}
+  {#</div>#}
+
+{% endblock %}
+
+{% block javascripts %}
+
+  {{ parent() }}
+
+{% endblock %}
+
+{% block footer %}
+
+  {{ parent() }}
+
+{% endblock %}

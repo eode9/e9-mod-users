@@ -1,0 +1,57 @@
+{% extends "layouts/layout.twig" %}
+
+{% block title %}{{ user.fullname }} profile {% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+
+  <div id="user-profile" class="ui container" style="padding-top: 70px;">
+    <form action="/user/profile" method="post">
+      <div class="user-profile-title">Functional access</div>
+
+      <div class="ui large buttons">
+        <button class="ui button profiles">
+          <img src="/images/user-engineer.png">
+        </button>
+        <button class="ui button profiles">
+          <img src="/images/user-analyst.png">
+        </button>
+      </div>
+
+      <div class="user-profile-title" style="padding-top: 50px;">Area access</div>
+
+      <div class="ui toggle button" style="background-color: #f7faf5;">Khourigba</div>
+
+      <div class="user-profile-title" style="padding-top: 35px;">Facility Access</div>
+
+      <div class="ui toggle button" style="background-color: #f7faf5;">Sidi Chennane</div>
+      <div class="ui toggle button" style="background-color: #f7faf5;">Merah Lahrach</div>
+      <div class="ui toggle button" style="background-color: #f7faf5;">Bani Amir</div>
+
+      <div class="user-profile-title" style="padding-top: 35px;">Email</div>
+
+      <div class="ui icon input">
+        <input type="email" name="email" class="input-bottom-line">
+      </div>
+
+      <div class="user-profile-title" style="padding-top: 35px;">Password</div>
+
+      <div class="ui icon input">
+        <input type="password" name="password" class="input-bottom-line">
+      </div>
+
+      <div style="padding-top: 75px; padding-bottom: 75px;">
+        <button type="submit" class="ui button" style="background-color: #fec500; color: #202020;">Save</button>
+        <button type="button" class="ui button"
+                style="background-color: #ffffff; border: 1px solid #aeaeae; color: #202020;" onclick="history.back();">
+          Cancel
+        </button>
+      </div>
+    </form>
+
+  </div>
+
+{% endblock %}
