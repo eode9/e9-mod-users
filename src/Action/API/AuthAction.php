@@ -2,7 +2,6 @@
 
 namespace E9\User\Action\API;
 
-
 use E9\Core\Action\AbstractAPIAction;
 use Slim\Http\Request;
 use Slim\Http\Response;
