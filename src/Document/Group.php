@@ -3,6 +3,7 @@
 namespace E9\User\Document;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Field;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\ReferenceMany;
@@ -10,6 +11,7 @@ use E9\Core\Document\AbstractDocument;
 
 /**
  * @Document(repositoryClass="E9\User\Repository\GroupRepository")
+ * @Collection(name="mod_user_group")
  */
 class Group extends AbstractDocument
 {

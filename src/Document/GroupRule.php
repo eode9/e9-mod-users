@@ -2,12 +2,14 @@
 
 namespace E9\User\Document;
 
+use Doctrine\ODM\MongoDB\Mapping\Annotations\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\ReferenceOne;
 use E9\Core\Document\AbstractDocument;
 
 /**
  * @Document(repositoryClass="E9\User\Repository\GroupRuleRepository")
+ * @Collection(name="mod_user_rule")
  */
 class GroupRule extends AbstractDocument
 {
