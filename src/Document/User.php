@@ -62,6 +62,7 @@ class User extends AbstractDocument
     {
         return array(
             'id' => $this->id,
+            'slug' => $this->slug,
             'fullname' => $this->fullName,
             'email' => $this->email,
             'created_at' => $this->createdAt,
