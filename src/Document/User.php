@@ -26,6 +26,12 @@ class User extends AbstractDocument
      * @var string
      * @Field(type="string")
      */
+    public $slug;
+
+    /**
+     * @var string
+     * @Field(type="string")
+     */
     public $email;
 
     /**
