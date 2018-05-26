@@ -2,14 +2,15 @@
 
 namespace E9\User\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Field;
 use E9\Core\Document\AbstractDocument;
 
 /**
- * @Document(repositoryClass="E9\User\Repository\PrivilegeRepository")
- * @Collection(name="mod_user_privilege")
+ * @Document(
+ *     collection={"name"="user_group_privilege"},
+ *     repositoryClass="E9\User\Repository\PrivilegeRepository"
+ * )
  */
 class Privilege extends AbstractDocument
 {

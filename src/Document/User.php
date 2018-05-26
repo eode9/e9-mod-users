@@ -3,15 +3,16 @@
 namespace E9\User\Document;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ODM\MongoDB\Mapping\Annotations\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Field;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\ReferenceMany;
 use E9\Core\Document\AbstractDocument;
 
 /**
- * @Document(repositoryClass="E9\User\Repository\UserRepository")
- * @Collection(name="mod_user")
+ * @Document(
+ *     collection={"name"="user"},
+ *     repositoryClass="E9\User\Repository\UserRepository"
+ * )
  */
 class User extends AbstractDocument
 {
