@@ -1,26 +1,22 @@
 <?php
 
-/**
- * User routes
- */
+$app->get('/user/login', \E9\User\Action\Web\DisplayLoginPage::class)->setName('user-login-page');
+$app->post('/user/auth', \E9\User\Action\Web\AuthenticateUser::class)->setName('user-auth');
 
-$app->get('/user/login', UserAction::class . ':login')->setName('user-login');
-$app->post('/user/auth', UserAction::class . ':auth')->setName('user-auth');
+$app->get('/user/logout', \E9\User\Action\Web\Logout::class)->setName('user-logout');
 
-$app->get('/user/logout', UserAction::class . ':logout')->setName('user-logout');
-
-$app->get('/user/profile', UserAction::class . ':profile');
-$app->post('/user/profile', UserAction::class . 'UserAction:save');
+$app->get('/user/profile', \E9\User\Action\Web\DisplayProfilePage::class)->setName('user-profile');
+$app->post('/user/profile', \E9\User\Action\Web\SaveUserProfile::class)->setName('user-save-profile');
 
 $app->group('/user/register', function () {
-    $this->get('/activate/{id}/{token}', UserAction::class . ':activate');
-    $this->get('[/]', UserAction::class . ':register')->setName('user-register');
-    $this->post('/create', \App\Core\Action\UserAction::class . ':create');
+    $this->get('/activate/{id}/{token}', \E9\User\Action\Web\ActivateUser::class)->setName('user-activate');
+    $this->get('[/]', \E9\User\Action\Web\DisplayRegisterPage::class)->setName('user-register-page');
+    $this->post('[/]', \E9\User\Action\Web\RegisterUser::class)->setName('user-register');
 });
 
 $app->group('/user/forgot-email', function () {
-    $this->get('[/]', 'App\Action\User\Forgot:main');
-    $this->post('[/]', 'App\Action\User\Forgot:main');
+    $this->get('[/]', \E9\User\Action\Web\DisplayForgotPasswordPage::class)->setName('user-forgot-password');
+    $this->post('[/]', \E9\User\Action\Web\SendResetPasswordEmail::class)->setName('user-send-reset-password');
     $this->get('/reset/{id}/{token}', 'App\Action\User\Forgot:reset_password');
 });
 
