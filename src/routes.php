@@ -9,6 +9,9 @@ $app->get('/user/logout', \E9\User\Action\Web\Logout::class)->setName('user-logo
 $app->get('/user/profile', \E9\User\Action\Web\DisplayProfilePage::class)->setName('user-profile');
 $app->post('/user/profile', \E9\User\Action\Web\SaveUserProfile::class)->setName('user-save-profile');
 
+$app->get('/user/settings', \E9\User\Action\Web\DisplaySettingsPage::class)->setName('user-settings');
+$app->post('/user/settings', \E9\User\Action\Web\SaveUserSettings::class)->setName('user-save-settings');
+
 $app->group('/user/register', function () {
     $this->get('/activate/{id}/{token}', \E9\User\Action\Web\ActivateUser::class)->setName('user-activate');
     $this->get('[/]', \E9\User\Action\Web\DisplayRegisterPage::class)->setName('user-register-page');
