@@ -55,6 +55,7 @@ final class AuthenticateUser
             return $response->withRedirect('/user/login', 302);
         }
 
+        /** @var User|null $user */
         $user = $this->dm->getRepository(User::class)->findOneBy([
             'email' => $request->getParam('email'),
             'password' => md5(getenv('APP_SALT') . $request->getParam('password'))
@@ -65,7 +66,7 @@ final class AuthenticateUser
             return $response->withRedirect('/user/login', 302);
         }
 
-        $this->session->set('user', json_encode($user));
+        $this->session->set('user_id', json_encode($user->id));
 
         return $response->withRedirect('/');
     }

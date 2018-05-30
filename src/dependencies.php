@@ -8,9 +8,9 @@ $container = $app->getContainer();
  * @return \E9\User\Document\User
  */
 $container['user'] = function ($c) {
-    $user = json_decode($c['session']->get('user'));
-    if ($user) {
-        return $c->get('dm')->getRepository(\E9\User\Document\User::class)->find($user);
+    $userId = json_decode($c['session']->get('user_id'));
+    if ($userId) {
+        return $c->get('dm')->getRepository(\E9\User\Document\User::class)->find($userId);
     } else {
         return null;
     }
