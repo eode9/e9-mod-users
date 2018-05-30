@@ -5,12 +5,12 @@ $container = $app->getContainer();
 /**
  * Return the session manager component
  * @param $c
- * @return \E9\User\Entity\User
+ * @return \E9\User\Document\User
  */
 $container['user'] = function ($c) {
     $user = json_decode($c['session']->get('user'));
     if ($user) {
-        return $c->get('em')->getRepository(\E9\User\Entity\User::class)->find($user);
+        return $c->get('dm')->getRepository(\E9\User\Document\User::class)->find($user);
     } else {
         return null;
     }

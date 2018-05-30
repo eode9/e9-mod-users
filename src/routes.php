@@ -1,5 +1,6 @@
 <?php
 
+/** Web routes */
 $app->get('/user/login', \E9\User\Action\Web\DisplayLoginPage::class)->setName('user-login-page');
 $app->post('/user/auth', \E9\User\Action\Web\AuthenticateUser::class)->setName('user-auth');
 
@@ -29,9 +30,7 @@ $app->group('/callback', function () {
     $this->map(['GET', 'POST'], '[/]', 'App\Action\User\Social:callback');
 });
 
-/**
- * API Auth && Registration
- */
+/** API routes */
 $app->post('/api/v1/auth', App\Core\Action\API\Auth\AuthAction::class);
 $app->post('/api/v1/register', 'App\Core\Action\API\APIAuthAction:register');
 
