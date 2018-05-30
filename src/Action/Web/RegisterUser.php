@@ -67,7 +67,7 @@ final class RegisterUser
             return $response->withRedirect('/user/register', 302);
         }
 
-        $this->session->set('user', json_encode($user));
+        $this->session->set('user_id', json_encode($user->id));
 
         return $response->withRedirect('/');
     }
