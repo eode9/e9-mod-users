@@ -34,7 +34,7 @@ final class Logout
      */
     public function __invoke(Request $request, Response $response, $args) : Response
     {
-        $this->session->delete('user');
+        $this->session->clearAll();
 
         return $response->withRedirect('/', 302);
     }
