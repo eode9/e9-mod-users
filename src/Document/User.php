@@ -38,6 +38,12 @@ class User extends AbstractDocument
      * @var string
      * @Field(type="string")
      */
+    public $pictureURL;
+
+    /**
+     * @var string
+     * @Field(type="string")
+     */
     public $password;
 
     /**
