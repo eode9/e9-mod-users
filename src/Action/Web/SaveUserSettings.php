@@ -11,7 +11,7 @@ use Slim\Http\Response;
  * Class AuthAction
  * @package E9\User\Action\Web
  */
-final class SaveUserProfile
+final class SaveUserSettings
 {
     /**
      * @var DocumentManager

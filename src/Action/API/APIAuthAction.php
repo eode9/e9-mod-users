@@ -1,13 +1,46 @@
 <?php
 
-namespace E9\User\Action\API;
+namespace Contactless\Core\Action\API;
 
-use E9\Core\Action\AbstractAPIAction;
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Contactless\Core\Common\AbstractAPIAction;
+use Contactless\Core\Entity\User;
+use \Slim\Http\Request;
+use \Slim\Http\Response;
 
-final class AuthAction extends AbstractAPIAction
+use Firebase\JWT\JWT;
+use Tuupola\Base62;
+
+final class APIAuthAction extends AbstractAPIAction
 {
+    /**
+     * @api {post} api/v1/auth Auth entity
+     * @apiVersion 1.0.0
+     * @apiName Authentication
+     * @apiGroup Auth
+     *
+     * @apiSampleRequest https://app.contactless.io/api/v1/auth
+     *
+     * @apiParam {String} [api_key] API key
+     * @apiParam {String} [api_secret] API secret key
+     * @apiParam {String} [type] api
+     *
+     * @apiSuccess {String} JSON Web Token
+     * @apiSuccess {Array} Logged entity
+     *
+     */
+
+    /**
+     * Authenticate Entity
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     * @return Response
+     */
+    public function auth(Request $request, Response $response, array $args): Response
+    {
+
+    }
+
     /**
      * @api {post} api/v1/users Register a new user
      * @apiVersion 1.0.0
@@ -39,27 +72,27 @@ final class AuthAction extends AbstractAPIAction
      * @param array $args
      * @return Response
      */
-    public function register(Request $request, Response $response, array $args)
+    public function register(Request $request, Response $response, array $args): Response
     {
         $data = array();
 
         switch ($request->getParam('type')) {
             case 'user':
-
-                $user = $this->userResource->createUser($request->getParams());
+                $user = new User();
+                $this->getEntityManager()->getRepository(User::class)->hydrate($user, $request->getParams());
 
                 // Validation
-                $errors = $this->userResource->validate($user);
-
-                if (is_array($errors) && count($errors)) {
-                    return $this->prepareError($response, 'Validation failed', array(
-                        '_errors' => $errors
-                    ), 422);
+                $constraints = $this->getValidator()->validate($user);
+                if ($constraints->count()) {
+                    return $this->prepareError($response, 'Please fix issues', [
+                        '_errors' => $this->getValidationErrors($constraints),
+                        'user' => $user
+                    ], 422);
                 }
 
-                // Save
                 try {
-                    $this->userResource->save($user);
+                    $this->getEntityManager()->persist($user);
+                    $this->getEntityManager()->flush();
                 } catch (\Exception $e) {
                     return $this->prepareError($response, $e->getMessage(), array(), 500);
                 }
@@ -116,46 +149,27 @@ final class AuthAction extends AbstractAPIAction
      * @param array $args
      * @return Response
      */
-    public function forgotPassword(Request $request, Response $response, array $args)
+    public function forgotPassword(Request $request, Response $response, array $args) : Response
     {
-        $data = array();
-
-
-        switch ($request->getParam('type')) {
-            case 'user':
-
-                $email = $request->getParam('email', null);
-
-                if ($email === null) {
-                    return $this->prepareError($response, 'Email is required', 400, array());
-                }
-
-                $user = $this->userResource->getUserByEmail($email);
-
-                $user->setResetPasswordKey(Base62::encode(random_bytes(16)));
-
-                // Save
-                try {
-                    $this->userResource->save($user);
-                } catch (\Exception $e) {
-                    return $this->prepareError($response, $e->getMessage(), array(), 500);
-                }
-
-                // Send email @todo
-                $result = $this->sendResetPassword($user);
-
-                $data['sent'] = true;
-
-                break;
-
-            case 'crew':
-
-            default:
-                return $this->prepareError($response, 'Undefined type to register', array(), 422);
-
+        $email = $request->getParam('email');
+        if ($email === null) {
+            return $this->prepareError($response, 'Email is required', 400, array());
         }
 
-        return $this->prepareSuccess($response, $data, 200);
+        /** @var User $user */
+        $user = $this->getEntityManager()->getRepository(User::class)->findBy(['email' => $email]);
+        $user->setResetPasswordKey(Base62::encode(random_bytes(16)));
+
+        try {
+            $this->getEntityManager()->persist($user);
+            $this->getEntityManager()->flush();
+        } catch (\Exception $e) {
+            return $this->prepareError($response, $e->getMessage(), array(), 500);
+        }
+
+        $this->sendResetPassword($user);
+
+        return $this->prepareSuccess($response, ['user' => $user], 200);
     }
 
     /**
@@ -163,7 +177,8 @@ final class AuthAction extends AbstractAPIAction
      */
     private function sendResetPassword(User $user)
     {
-        $this->mail->setFrom('no-reply@app.io', 'App.io');
+        // @todo
+        $this->getMailer()->setFrom('no-reply@contactless.io', 'Contactless.io');
         $this->mail->addAddress($user->getEmail(), $user->getFullName() === null ? $user->getEmail() : $user->getFullName());
         $this->mail->isHTML(true);
 
@@ -184,7 +199,6 @@ final class AuthAction extends AbstractAPIAction
         }
     }
 
-
     /**
      * Get User info from reset password key
      * @param Request $request
@@ -192,16 +206,14 @@ final class AuthAction extends AbstractAPIAction
      * @param array $args
      * @return Response
      */
-    public function getUserInfoFromResetPasswordKey(Request $request, Response $response, array $args)
+    public function getUserInfoFromResetPasswordKey(Request $request, Response $response, array $args) : Response
     {
-        $key = $request->getParam('key', null);
-
+        $key = $request->getParam('key');
         if ($key === null) {
             return $this->prepareError($response, 'Reset password key is required', 400, array());
         }
 
-        $user = $this->userResource->getUserByResetPasswordKey($key);
-
+        $user = $this->getEntityManager()->getRepository(User::class)->findOneBy(['passwordKey' => $key]);
         if ($user === null) {
             return $this->prepareError($response, 'Reset password key not valid.', array(), 404);
         }
@@ -216,32 +228,32 @@ final class AuthAction extends AbstractAPIAction
      * @param array $args
      * @return Response
      */
-    public function resetPassword(Request $request, Response $response, array $args)
+    public function resetPassword(Request $request, Response $response, array $args) : Response
     {
-        $key = $request->getParam('key', null);
-        $password = $request->getParam('password', null);
-
+        $key = $request->getParam('key');
         if ($key === null) {
             return $this->prepareError($response, 'Reset password key is required', 400, array());
         }
 
+        $password = $request->getParam('password');
         if ($password === null) {
             return $this->prepareError($response, 'New password is required', 400, array());
         }
 
         switch ($request->getParam('type')) {
             case 'user':
-
-                $user = $this->userResource->getUserByResetPasswordKey($key);
-
+                /** @var User $user */
+                $user = $this->getEntityManager()->getRepository(User::class)->findOneBy(['passwordKey' => $key]);
                 if ($user === null) {
                     return $this->prepareError($response, 'Reset password key not valid', array(), 404);
                 }
-
-                if (!$this->userResource->setNewPassword($user, $password)) {
+                try {
+                    $user->password = md5(APP_SALT . $password);
+                    $this->getEntityManager()->persist($user);
+                    $this->getEntityManager()->flush();
+                } catch (\Exception $e) {
                     return $this->prepareError($response, 'Unable to reset password ', array(), 500);
                 }
-
                 break;
 
             default:
@@ -250,5 +262,4 @@ final class AuthAction extends AbstractAPIAction
 
         return $this->prepareSuccess($response, ['reset' => true], 200);
     }
-
 }

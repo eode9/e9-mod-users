@@ -34,7 +34,8 @@ $app->group('/callback', function () {
 });
 
 /** API routes */
-$app->post('/api/v1/auth', App\Core\Action\API\Auth\AuthAction::class);
+//$app->post('/api/v1/auth', App\Core\Action\API\Auth\AuthAction::class);
+$app->post('/api/v1/users/auth', \E9\User\Action\API\AuthenticateUser::class);
 $app->post('/api/v1/register', 'App\Core\Action\API\APIAuthAction:register');
 
 $app->options('/api/v1/forgot-password', 'App\Core\Action\API\APIAuthAction:forgotPassword');
