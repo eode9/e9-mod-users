@@ -70,10 +70,12 @@ final class AuthenticateUser extends AbstractAPIAction
         }
 
         // @todo
-        $scopes[] = 'user.logout';
+        $scope = [
+            'user.logout'
+        ];
 
-        $data['user'] = $user;
-        $data['scopes'] = $scopes;
+//        $data['user'] = $user;
+        $data['scope'] = $scope;
 
         $now = new \DateTime();
         $future = new \DateTime('now +1 days');
@@ -83,9 +85,9 @@ final class AuthenticateUser extends AbstractAPIAction
             'exp' => $future->getTimestamp(),
             'jti' => $jti,
             'sub' => $user->email,
-            'scope' => $scopes
+            'scope' => $scope
         ];
-        $token = JWT::encode($payload, getenv('APP_JWT_SECRET'));
+        $token = JWT::encode($payload, getenv('JWT_SECRET'));
         $data['token'] = $token;
 
         return $this->prepareSuccess($response, $data, 200);
