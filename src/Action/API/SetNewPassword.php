@@ -15,7 +15,7 @@ use Tuupola\Base62;
  * Class AuthenticateUser
  * @package E9\User\Action\API
  */
-final class AuthenticateUser extends AbstractAPIAction
+final class SetNewPassword extends AbstractAPIAction
 {
     /**
      * @var DocumentManager

@@ -34,25 +34,26 @@ $app->group('/callback', function () {
 });
 
 /** API routes */
-//$app->post('/api/v1/auth', App\Core\Action\API\Auth\AuthAction::class);
+$app->options('/api/v1/users/auth', \E9\User\Action\API\AuthenticateUser::class);
 $app->post('/api/v1/users/auth', \E9\User\Action\API\AuthenticateUser::class);
-$app->post('/api/v1/register', 'App\Core\Action\API\APIAuthAction:register');
 
-$app->options('/api/v1/forgot-password', 'App\Core\Action\API\APIAuthAction:forgotPassword');
-$app->put('/api/v1/forgot-password', 'App\Core\Action\API\APIAuthAction:forgotPassword');
+$app->options('/api/v1/users/register', \E9\User\Action\API\RegisterUser::class);
+$app->post('/api/v1/users/register', \E9\User\Action\API\RegisterUser::class);
 
-$app->options('/api/v1/reset-password-info', 'App\Core\Action\API\APIAuthAction:getUserInfoFromResetPasswordKey');
-$app->get('/api/v1/reset-password-info', 'App\Core\Action\API\APIAuthAction:getUserInfoFromResetPasswordKey');
+$app->options('/api/v1/users/send-reset-password-email', \E9\User\Action\API\SendResetPasswordEmail::class);
+$app->post('/api/v1/users/send-reset-password-email', \E9\User\Action\API\SendResetPasswordEmail::class);
 
-$app->options('/api/v1/reset-password', 'App\Core\Action\API\APIAuthAction:resetPassword');
-$app->put('/api/v1/reset-password', 'App\Core\Action\API\APIAuthAction:resetPassword');
+$app->options('/api/v1/new-password', \E9\User\Action\API\SetNewPassword::class);
+$app->get('/api/v1/new-password', \E9\User\Action\API\SetNewPassword::class);
 
 /**
  * API User routes
  */
-$app->options('/api/v1/users/{uuid}', 'App\Core\Action\API\APIUserAction:getUser');
-$app->get('/api/v1/users/{uuid}', 'App\Core\Action\API\APIUserAction:getUser');
-$app->put('/api/v1/users/{uuid}', 'App\Core\Action\API\APIUserAction:updateUser');
+$app->options('/api/v1/users', \E9\User\Action\API\GetUsers::class);
+$app->post('/api/v1/users', \E9\User\Action\API\CreateUser::class);
+$app->get('/api/v1/users', \E9\User\Action\API\GetUsers::class);
 
-//$app->patch('/api/v1/users/{key}', 'App\Core\Action\API\APIUserAction:updateUser');
-//$app->delete('/api/v1/users/{key}', 'App\Core\Action\API\APIUserAction:deleteUser');
+$app->options('/api/v1/users/{id}', \E9\User\Action\API\GetUser::class);
+$app->get('/api/v1/users/{id}', \E9\User\Action\API\GetUser::class);
+$app->patch('/api/v1/users/{id}', \E9\User\Action\API\UpdateUser::class);
+$app->delete('/api/v1/users/{id}', \E9\User\Action\API\DeleteUser::class);
