@@ -47,6 +47,12 @@ class User extends AbstractDocument
     public $password;
 
     /**
+     * @var string
+     * @Field(type="string")
+     */
+    public $resetPasswordToken;
+
+    /**
      * @var Group[]|ArrayCollection
      * @ReferenceMany(targetDocument="Group")
      */

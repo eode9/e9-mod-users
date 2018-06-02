@@ -22,7 +22,7 @@
     "alexshelkov/simpleacl": "2.*"
   },
   "require-dev": {
-    "phpunit/phpunit": "5.2.*"
+    "phpunit/phpunit": "^5.2"
   },
   "autoload": {
     "psr-4": {

@@ -32,27 +32,9 @@ final class AuthenticateUser extends AbstractAPIAction
     }
 
     /**
-     * @api {post} api/v1/auth Auth entity
-     * @apiVersion 1.0.0
-     * @apiName Authentication
-     * @apiGroup Auth
-     *
-     * @apiSampleRequest https://app.contactless.io/api/v1/auth
-     *
-     * @apiParam {String} [api_key] API key
-     * @apiParam {String} [api_secret] API secret key
-     * @apiParam {String} [type] api
-     *
-     * @apiSuccess {String} JSON Web Token
-     * @apiSuccess {Array} Logged entity
-     *
-     */
-
-    /**
-     * Authenticate Entity
      * @param Request $request
      * @param Response $response
-     * @param array $args
+     * @param $args
      * @return Response
      */
     public function __invoke(Request $request, Response $response, $args): Response
@@ -69,7 +51,6 @@ final class AuthenticateUser extends AbstractAPIAction
             return $this->prepareError($response, 'Invalid credentials', array(), 401);
         }
 
-        // @todo
         $scopes[] = 'user.logout';
 
         $data['user'] = $user;
